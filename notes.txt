@@ -1,0 +1,174 @@
+Redirect URL (unused): http://127.0.0.1:9001
+
+Things to store in the DB:
+- token (good for 1 hour) with expiry time (single entry table)
+CREATE TABLE auth_token (
+    id INTEGER PRIMARY KEY,
+    token TEXT NOT NULL,
+    expiry INTEGER NOT NULL
+)
+
+- Date of most recently seen post (single entry table)
+CREATE TABLE posts (
+    id INTEGER PRIMARY KEY,
+    title TEXT NOT NULL,
+    date INTEGER NOT NULL
+)
+- email subscribers
+CREATE TABLE subscriber (
+    id INTEGER PRIMARY KEY,
+    first_name TEXT NOT NULL,
+    last_name TEXT NOT NULL,
+    email TEXT NOT NULL
+)
+
+JSON structure for user/submitted listing
+{
+    "kind": "listing",
+    "data": {
+        "modhash": None,
+        "dist": 25,
+        "children": [
+            # Individual post objects here
+            {
+                "kind": "t3",
+                "data": {
+                    "subreddit": XXX,
+                    "title": XXX,
+                    ...
+                }
+            },
+            {
+                "kind": "t3",
+                "data": {
+                    "subreddit": XXX,
+                    "title": XXX,
+                    ...
+                }
+            },
+            ...
+        ],
+        "after": "t3_xxxxxx",
+        "before": None
+    }
+}
+
+Relevent post data keys:
+- title
+- subreddit
+- author
+- permalink (must prepend with "https://www.reddit.com")
+
+Full list example:
+approved_at_utc: None
+subreddit: Edmonton
+selftext:
+author_fullname: t2_i06ao
+saved: False
+mod_reason_title: None
+gilded: 0
+clicked: False
+title: March 21 - Edmonton Cases of COVID-19
+link_flair_richtext: []
+subreddit_name_prefixed: r/Edmonton
+hidden: False
+pwls: 6
+link_flair_css_class:
+downs: 0
+thumbnail_height: 140
+top_awarded_type: None
+hide_score: False
+name: t3_mag1d8
+quarantine: False
+link_flair_text_color: dark
+upvote_ratio: 0.94
+author_flair_background_color: None
+subreddit_type: public
+ups: 54
+total_awards_received: 1
+media_embed: {}
+thumbnail_width: 140
+author_flair_template_id: None
+is_original_content: False
+user_reports: []
+secure_media: None
+is_reddit_media_domain: True
+is_meta: False
+category: None
+secure_media_embed: {}
+link_flair_text: Covid-19 Coronavirus
+can_mod_post: False
+score: 54
+approved_by: None
+author_premium: True
+thumbnail: https://b.thumbs.redditmedia.com/IBEOLNoJ7KSIa7_Xt6x7Bofca_DFJ-q8JsWpqj8HeAI.jpg
+edited: False
+author_flair_css_class: None
+author_flair_richtext: []
+gildings: {'gid_3': 1}
+post_hint: image
+content_categories: None
+is_self: False
+mod_note: None
+created: 1616420314.0
+link_flair_type: text
+wls: 6
+removed_by_category: None
+banned_by: None
+author_flair_type: text
+domain: i.redd.it
+allow_live_comments: False
+selftext_html: None
+likes: None
+suggested_sort: None
+banned_at_utc: None
+url_overridden_by_dest: https://i.redd.it/4o9c22i5oio61.png
+view_count: None
+archived: False
+no_follow: False
+is_crosspostable: True
+pinned: False
+over_18: False
+preview: {'images': [{'source': {'url': 'https://preview.redd.it/4o9c22i5oio61.png?auto=webp&amp;s=4d8a588549a21899977b1eb0f870a9dc75952681', 'width': 6795, 'height': 8931}, 'resolutions': [{'url': 'https://preview.redd.it/4o9c22i5oio61.png?width=108&amp;crop=smart&amp;auto=webp&amp;s=a8215234772e7c55fc2ac332c02933c8931d02ea', 'width': 108, 'height': 141}, {'url': 'https://preview.redd.it/4o9c22i5oio61.png?width=216&amp;crop=smart&amp;auto=webp&amp;s=bf71d72b009e770fda36156854488687b9eb5d89', 'width': 216, 'height': 283}, {'url': 'https://preview.redd.it/4o9c22i5oio61.png?width=320&amp;crop=smart&amp;auto=webp&amp;s=008b2eef6a72a575bc6e75ed56ab9fc1b050e25a', 'width': 320, 'height': 420}, {'url': 'https://preview.redd.it/4o9c22i5oio61.png?width=640&amp;crop=smart&amp;auto=webp&amp;s=e41ac726341c449fd392de22f295a5d72e9ea9c6', 'width': 640, 'height': 841}, {'url': 'https://preview.redd.it/4o9c22i5oio61.png?width=960&amp;crop=smart&amp;auto=webp&amp;s=7c4b61b2aca109c1c3fab326ed1a5230d8acd884', 'width': 960, 'height': 1261}, {'url': 'https://preview.redd.it/4o9c22i5oio61.png?width=1080&amp;crop=smart&amp;auto=webp&amp;s=444351df93cfb38b7a22b943463e9394f7d210c8', 'width': 1080, 'height': 1419}], 'variants': {}, 'id': 'YbdmmgH4YmZulsS-fCH3AwtqasROReF17pl5SFK_-N4'}], 'enabled': True}
+all_awardings: [{'giver_coin_reward': None, 'subreddit_id': None, 'is_new': False, 'days_of_drip_extension': 31, 'coin_price': 1800, 'id': 'gid_3', 'penny_donate': None, 'award_sub_type': 'GLOBAL', 'coin_reward': 0, 'icon_url': 'https://www.redditstatic.com/gold/awards/icon/platinum_512.png', 'days_of_premium': 31, 'tiers_by_required_awardings': None, 'resized_icons': [{'url': 'https://www.redditstatic.com/gold/awards/icon/platinum_16.png', 'width': 16, 'height': 16}, {'url': 'https://www.redditstatic.com/gold/awards/icon/platinum_32.png', 'width': 32, 'height': 32}, {'url': 'https://www.redditstatic.com/gold/awards/icon/platinum_48.png', 'width': 48, 'height': 48}, {'url': 'https://www.redditstatic.com/gold/awards/icon/platinum_64.png', 'width': 64, 'height': 64}, {'url': 'https://www.redditstatic.com/gold/awards/icon/platinum_128.png', 'width': 128, 'height': 128}], 'icon_width': 512, 'static_icon_width': 512, 'start_date': None, 'is_enabled': True, 'awardings_required_to_grant_benefits': None, 'description': 'Gives 700 Reddit Coins and a month of r/lounge access and ad-free browsing.', 'end_date': None, 'subreddit_coin_reward': 0, 'count': 1, 'static_icon_height': 512, 'name': 'Platinum', 'resized_static_icons': [{'url': 'https://www.redditstatic.com/gold/awards/icon/platinum_16.png', 'width': 16, 'height': 16}, {'url': 'https://www.redditstatic.com/gold/awards/icon/platinum_32.png', 'width': 32, 'height': 32}, {'url': 'https://www.redditstatic.com/gold/awards/icon/platinum_48.png', 'width': 48, 'height': 48}, {'url': 'https://www.redditstatic.com/gold/awards/icon/platinum_64.png', 'width': 64, 'height': 64}, {'url': 'https://www.redditstatic.com/gold/awards/icon/platinum_128.png', 'width': 128, 'height': 128}], 'icon_format': None, 'icon_height': 512, 'penny_price': None, 'award_type': 'global', 'static_icon_url': 'https://www.redditstatic.com/gold/awards/icon/platinum_512.png'}]
+awarders: []
+media_only: False
+link_flair_template_id: 668fec1a-d330-11e9-b9e4-0eac07eb9c22
+can_gild: True
+spoiler: False
+locked: False
+author_flair_text: None
+treatment_tags: []
+visited: False
+removed_by: None
+num_reports: None
+distinguished: None
+subreddit_id: t5_2raht
+mod_reason_by: None
+removal_reason: None
+link_flair_background_color: #dadada
+id: mag1d8
+is_robot_indexable: True
+report_reasons: None
+author: mikesmith929
+discussion_type: None
+num_comments: 2
+send_replies: True
+whitelist_status: all_ads
+contest_mode: False
+mod_reports: []
+author_patreon_flair: False
+author_flair_text_color: None
+permalink: /r/Edmonton/comments/mag1d8/march_21_edmonton_cases_of_covid19/
+parent_whitelist_status: all_ads
+stickied: False
+url: https://i.redd.it/4o9c22i5oio61.png
+subreddit_subscribers: 115669
+created_utc: 1616391514.0
+num_crossposts: 0
+media: None
+is_video: False
+
+
+INSERT INTO subscriber(first_name, last_name, email)
+VALUES('Sean', 'Casey', 'sccasey04@gmail.com')
