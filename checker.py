@@ -1,4 +1,3 @@
-import argparse
 import datetime as dt
 import re
 from api import RedditAPIManager
@@ -6,25 +5,10 @@ from db import DatabaseConnection
 import settings as env
 
 class RedditChecker:
-    def __init__(self):
-        # args = get_args()
-        # if not args["quiet"]:
-        #     print("App ID:", env.ID)
-        #     print("App Secret:", env.SECRET)
-        #     print(env.USERNAME)
-        
+    def __init__(self):        
         self.db_conn = DatabaseConnection()
         self.api_manager = RedditAPIManager()
         self.set_token()
-
-        # print("\nToken: %s\n" % token)
-
-        # top_25 = RedditAPIManager.get_posts()
-        # first = top_25[0]["data"]
-        # print(first["title"])
-        # results = self.search_posts(top_25, self.db_self.db_conn)
-        # print(results)
-        # return 0
 
 
     def set_token(self):
@@ -45,6 +29,9 @@ class RedditChecker:
             "cases": None,
             "hospitalizations": None
         }
+        if data is None:
+            return results
+            
         cases_regex = "^([A-Z]{1}[a-z]+\s[0-9]{1,2})\s+-\s+(Edmonton\s+Cases\s+of\s+COVID-19)$"
         hospitalizations_regex = "^([A-Z]{1}[a-z]+\s[0-9]{1,2})\s+-\s+(Edmonton\s+Vaccination\s+&\s+Hospitalization\s+Cases\s+of\s+COVID-19)$"
         cases_found = False
@@ -55,7 +42,6 @@ class RedditChecker:
         for post in data:
             info = post["data"]
             title = info["title"]
-            # print(title)
 
             # Check for Cases post
             if not cases_found:

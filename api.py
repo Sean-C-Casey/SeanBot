@@ -1,10 +1,13 @@
 import datetime as dt
-from sqlite3.dbapi2 import InterfaceError
+import logging
 import requests
 import requests.auth as auth
-from time import sleep
 import settings as env
+from sqlite3.dbapi2 import InterfaceError
+from time import sleep
 
+
+logger = logging.getLogger("discord")
 
 class RedditAPIManager:
     def __init__(self):
@@ -14,9 +17,9 @@ class RedditAPIManager:
         self.__token = None
         self.__expiry = None     # Epoch time when token expires
 
-    #@classmethod
     def get_token(self):
-        if not self.__token:
+        if not self.__token or int(dt.datetime.now().timestamp()) > self.__expiry:
+            logger.info("Fetching new Reddit token...")
             client_auth = auth.HTTPBasicAuth(env.REDDIT_ID, env.REDDIT_SECRET)
             data = {
                 "grant_type": "password", 
@@ -34,14 +37,12 @@ class RedditAPIManager:
             self.__expiry = int(dt.datetime.now().timestamp()) + age_limit
         return (self.__token, self.__expiry)
     
-    #@classmethod
     def set_token(self, token, expiry):
         if not isinstance(token, str) or not isinstance(expiry, int):
             raise InterfaceError("Improper argument type(s) given")
         self.__token = token
         self.__expiry = expiry
     
-    #S@classmethod
     def get_posts(self):
         now = int(dt.datetime.now().timestamp())
         if now >= self.__expiry:
@@ -52,9 +53,15 @@ class RedditAPIManager:
         headers = self.__basic_header
         headers["Authorization"] = "bearer %s" % self.__token
         response = requests.get(env.POSTS_URL, headers=headers)
-        self.__remaining_requests = response.headers["x-ratelimit-remaining"]
-        seconds_until_next_reset = int(response.headers["x-ratelimit-reset"])
-        self.__next_reset = now + seconds_until_next_reset
+        if response.ok:
+            self.__remaining_requests = response.headers["x-ratelimit-remaining"]
+            seconds_until_next_reset = int(response.headers["x-ratelimit-reset"])
+            self.__next_reset = now + seconds_until_next_reset
 
-        # See README.txt for response JSON structure
-        return response.json()["data"]["children"]
+            # See notes.txt for response JSON structure
+            return response.json()["data"]["children"]
+        else:
+            logger.error("Unable to retrieve Reddit post data: %s, %s" % (response.status_code, response.reason))
+            if int(response.status_code) == 401:
+                self.get_token()
+            return None
