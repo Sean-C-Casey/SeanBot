@@ -3,6 +3,8 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
 # From env file
 REDDIT_ID = os.getenv("REDDIT_APP_ID", None)
 REDDIT_SECRET = os.getenv("REDDIT_APP_SECRET", None)

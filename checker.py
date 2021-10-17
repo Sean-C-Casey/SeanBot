@@ -32,8 +32,10 @@ class RedditChecker:
         if data is None:
             return results
             
-        cases_regex = "^([A-Z]{1}[a-z]+\s[0-9]{1,2})\s+-\s+(Edmonton\s+Cases\s+of\s+COVID-19)$"
-        hospitalizations_regex = "^([A-Z]{1}[a-z]+\s[0-9]{1,2})\s+-\s+(Edmonton\s+Vaccination\s+&\s+Hospitalization\s+Cases\s+of\s+COVID-19)$"
+        # cases_regex = "^([A-Z]{1}[a-z]+\s[0-9]{1,2})\s+-\s+(Edmonton\s+Cases\s+of\s+COVID-19)$"
+        cases_regex = "^([A-Z]{1}[a-z]+\s[0-9]{1,2})\s+-\s+(Edmonton\s+COVID-19\s+Cases\s+&\s+Daily\s+Tests)$"
+        # hospitalizations_regex = "^([A-Z]{1}[a-z]+\s[0-9]{1,2})\s+-\s+(Edmonton\s+Vaccination\s+&\s+Hospitalization\s+Cases\s+of\s+COVID-19)$"
+        hospitalizations_regex = "^([A-Z]{1}[a-z]+\s[0-9]{1,2})\s+-\s+(Edmonton\s+COVID-19\s+Active\s+Cases,\s+Daily\s+Cases,\s+Hospitalization\s+&\s+Vaccinations)$"
         cases_found = False
         hospitalizations_found = False
 

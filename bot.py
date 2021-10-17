@@ -3,6 +3,7 @@ import datetime as dt
 import discord
 from discord.ext import commands, tasks
 import logging
+import os
 import settings as env
 
 class CheckerCog(commands.Cog):
@@ -93,10 +94,10 @@ class CheckerCog(commands.Cog):
 
 
 if __name__ == "__main__":
-    # logging.basicConfig(level=logging.INFO)
     logger = logging.getLogger("discord")
     logger.setLevel(logging.INFO)
-    log_handler = logging.FileHandler(filename="info.log", encoding="utf-8", mode="w")
+    log_file = os.path.join(env.BASE_DIR, "info.log")
+    log_handler = logging.FileHandler(filename=log_file, encoding="utf-8", mode="w")
     log_handler.setFormatter(logging.Formatter('%(asctime)s | %(name)s | %(levelname)s: %(message)s'))
     logger.addHandler(log_handler)
     

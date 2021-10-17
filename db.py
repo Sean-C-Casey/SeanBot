@@ -46,18 +46,10 @@ class DatabaseConnection:
                       date TEXT NOT NULL
                   );
                """
-        sql3 = """CREATE TABLE subscriber (
-                      id INTEGER PRIMARY KEY,
-                      first_name TEXT NOT NULL,
-                      last_name TEXT NOT NULL,
-                      email TEXT NOT NULL
-                  );
-               """
         try:
             cursor = self.connection.cursor()
             cursor.execute(sql1)
             cursor.execute(sql2)
-            cursor.execute(sql3)
             self.connection.commit()
         except sqlite3.Error as e:
             print("Error:", e)
